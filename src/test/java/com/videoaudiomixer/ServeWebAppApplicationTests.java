@@ -1,10 +1,10 @@
-package com.videoaudiomixer.videoaudiomixer;
+package com.videoaudiomixer;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class VideoAudioMixerApplicationTests {
+class ServeWebAppApplicationTests {
 
 	@Test
 	void contextLoads() {
