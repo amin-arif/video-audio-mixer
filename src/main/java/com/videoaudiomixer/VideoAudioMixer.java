@@ -31,12 +31,13 @@ public class VideoAudioMixer {
         command.add("1:a:0");
         command.add(videoOutputPath);
 
+        // Print command that will be executed
         for (String item : command) {
             System.out.print(item);
         }
         System.out.println(); // for new line print
 
-        // Process of execution
+        // Process of execution (status)
         ProcessBuilder processBuilder = new ProcessBuilder(command);
         Process process = processBuilder.start();
 
