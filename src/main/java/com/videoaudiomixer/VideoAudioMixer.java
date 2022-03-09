@@ -3,9 +3,10 @@ package com.videoaudiomixer;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class VideoAudioMixer {
-    private String ffmpegExe;
+    private String ffmpegExe; // ffmpeg.exe file location (ffmpeg stored in local directory)
 
     public VideoAudioMixer(String ffmpegExe) {
         super();
@@ -33,7 +34,9 @@ public class VideoAudioMixer {
         for (String item : command) {
             System.out.print(item);
         }
+        System.out.println(); // for new line print
 
+        // Process of execution
         ProcessBuilder processBuilder = new ProcessBuilder(command);
         Process process = processBuilder.start();
 
@@ -41,9 +44,9 @@ public class VideoAudioMixer {
         InputStreamReader inputStreamReader = new InputStreamReader(errorStream);
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
-        String errLine = "";
-        while ((errLine = bufferedReader.readLine()) != null) {
-            System.out.println(errLine);
+        String executionLine = "";
+        while ((executionLine = bufferedReader.readLine()) != null) {
+            System.out.println(executionLine);
         }
 
         if (bufferedReader != null) { inputStreamReader.close(); }
@@ -53,10 +56,22 @@ public class VideoAudioMixer {
     public static void main(String[] args) {
         VideoAudioMixer mixer = new VideoAudioMixer("C:\\ffmpeg\\bin\\ffmpeg.exe");
 
+        Scanner input = new Scanner(System.in);
+        String videoPath, audioPath;
+
+        System.out.print("Enter your video file location: ");
+        videoPath = input.nextLine();
+        System.out.print("Enter your audio file location: ");
+        audioPath = input.nextLine();
+
+        input.close();
+
         try {
-            mixer.mergeVideoAudio("D:\\KANON\\Videos\\trivubon_video.mp4", "D:\\KANON\\Videos\\baba_audio.mp3", "D:\\KANON\\Videos\\new_video.mp4");
+            mixer.mergeVideoAudio(videoPath, audioPath, "C:\\Users\\Asus\\Videos\\new_video.mp4");
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        System.out.println("Check your output path.\nC:\\Users\\Asus\\Videos\\new_video.mp4");
     }
 }
