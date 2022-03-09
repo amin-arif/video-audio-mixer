@@ -17,7 +17,7 @@ public class VideoAudioMixer {
         List<String> command = new ArrayList<>();
 
         // Program follow the command
-        // ffmpeg -i v.mp4 -i a.wav -c:v copy -map 0:v:0 -map 1:a:0 new.mp4
+        // ffmpeg -i video.mp4 -i audio.mp3 -c:v copy -map 0:v:0 -map 1:a:0 new_merged_video.mp4
         command.add(ffmpegExe); // ffmpeg
         command.add("-i");
         command.add(videoInputPath);
