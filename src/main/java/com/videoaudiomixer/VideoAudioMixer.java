@@ -1,5 +1,6 @@
 package com.videoaudiomixer;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,13 +12,11 @@ public class VideoAudioMixer {
         this.ffmpegExe = ffmpegExe;
     }
 
-    public void mergeVideoAudio(String videoInputPath, String audioInputPath, String videoOutputPath) throws Exception
-    {
+    public void mergeVideoAudio(String videoInputPath, String audioInputPath, String videoOutputPath) throws Exception {
         List<String> command = new ArrayList<>();
 
-        // Command that program follow
+        // Program follow the command
         // ffmpeg -i v.mp4 -i a.wav -c:v copy -map 0:v:0 -map 1:a:0 new.mp4
-
         command.add(ffmpegExe); // ffmpeg
         command.add("-i");
         command.add(videoInputPath);
@@ -35,12 +34,23 @@ public class VideoAudioMixer {
             System.out.print(item);
         }
 
-        ProcessBuilder process = new ProcessBuilder(command);
-        process.start();
+        ProcessBuilder processBuilder = new ProcessBuilder(command);
+        Process process = processBuilder.start();
+
+        InputStream errorStream = process.getErrorStream();
+        InputStreamReader inputStreamReader = new InputStreamReader(errorStream);
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+        String errLine = "";
+        while ((errLine = bufferedReader.readLine()) != null) {
+            System.out.println(errLine);
+        }
+
+        if (bufferedReader != null) { inputStreamReader.close(); }
+        if (errorStream != null) { errorStream.close(); }
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         VideoAudioMixer mixer = new VideoAudioMixer("C:\\ffmpeg\\bin\\ffmpeg.exe");
 
         try {
