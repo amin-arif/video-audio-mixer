@@ -72,6 +72,6 @@ public class VideoAudioMixer {
             e.printStackTrace();
         }
 
-        System.out.println("Check your output path.\nC:\\Users\\Asus\\Videos\\new_video.mp4");
+        System.out.println("\nCheck your output path\nC:\\Users\\Asus\\Videos\\new_video.mp4");
     }
 }
